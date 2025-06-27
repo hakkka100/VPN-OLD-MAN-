@@ -1,0 +1,23 @@
+import NetworkExtension
+
+class VPNManager {
+    static let shared = VPNManager()
+    
+    func configureVPN() {
+        let vpnProtocol = NETunnelProviderProtocol()
+        vpnProtocol.serverAddress = "your.server.ip"
+        
+        let vpnManager = NEVPNManager.shared()
+        vpnManager.protocolConfiguration = vpnProtocol
+        vpnManager.localizedDescription = "My Gaming VPN"
+        vpnManager.isEnabled = true
+        
+        vpnManager.saveToPreferences { error in
+            if let error = error {
+                print("Failed to save: \(error)")
+            } else {
+                print("VPN configured successfully.")
+            }
+        }
+    }
+}
